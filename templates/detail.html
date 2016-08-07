@@ -7,5 +7,16 @@
 <body>
     <h1>"Url: "</h1>
     <p>{{ url }}</p>
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form action="{% url 'favorite' url.id %}" method = 'post'>
+        {% csrf_token %}
+
+    </form>
+
+
 </body>
 </html>

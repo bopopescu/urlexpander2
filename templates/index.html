@@ -7,10 +7,16 @@
 <body>
 {% if all_urls %}
     <h3>Here are all your Urls: </h3>
-    <ul>
+    <form action="{% url 'favorite' url.id %}" method = 'post'>
+        {% csrf_token %}
         {% for url in all_urls %}
             <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
+            <input type="button" name="url" value={{ url.id }}>
         {% endfor %}
+    </form>
+
+    <ul>
+
     </ul>
 {% else %}
     <h2>You don't have any urls</h2>
