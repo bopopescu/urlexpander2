@@ -7,10 +7,9 @@
 <body>
 {% if all_urls %}
     <h3>Here are all your Urls: </h3>
-    <form action="{% url 'favorite' url.id %}" method = 'post'>
+    <form action="{% url 'detail' url.id %}" method = 'post'>
         {% csrf_token %}
         {% for url in all_urls %}
-            <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
             <input type="button" name="url" value={{ url.id }}>
         {% endfor %}
     </form>
