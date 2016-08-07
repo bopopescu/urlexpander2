@@ -20,5 +20,7 @@ urlpatterns = [
     # /urlexpander2/
     url(r'^$', views.index, name='index'),
     # /urlexpander2/1234
-    url(r'^(?P<url_id>[0-9]+)/$', views.detail, name='detail')
+    url(r'^(?P<url_id>[0-9]+)/$', views.detail, name='detail'),
+    #/urlexpander2/1234/favorite/
+    url(r'^(?P<url_id>[0-9]+)/$', views.favorite, name = 'favorite')
 ]
