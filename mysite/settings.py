@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'urlexpander2.apps.Urlexpander2Config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,8 +76,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'urlexpander2',
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'urlexpander2',
 	'USER': 'snitkdan',
 	'PASSWORD': 'Daniel27876',
 	'HOST': 'localhost',

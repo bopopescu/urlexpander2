@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UrlExpander2</title>
+</head>
+<body>
+{% if all_urls %}
+    <h3>Here are all your Urls: </h3>
+    <ul>
+        {% for url in all_urls %}
+            {{ url }}
+        {% endfor %}
+    </ul>
+{% else %}
+    <h2>You don't have any urls</h2>
+{% endif %}
+</body>
+</html>
