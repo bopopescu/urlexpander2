@@ -5,7 +5,9 @@
     <title>Details</title>
 </head>
 <body>
-    <h1>"Url:"</h1>
-    <h1>{{ url.shortened }}</h1>
+    {% for Url in url %}
+        <h1>"Url: "</h1>
+        <h2>{{ url.shortened }}</h2>
+    {% endfor %}
 </body>
 </html>
