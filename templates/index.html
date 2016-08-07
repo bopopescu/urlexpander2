@@ -9,7 +9,7 @@
     <h3>Here are all your Urls: </h3>
     <ul>
         {% for url in all_urls %}
-            {{ url }}
+            <li><a href={% url 'detail' url.id %}>{{ url }}</a></li>
         {% endfor %}
     </ul>
 {% else %}

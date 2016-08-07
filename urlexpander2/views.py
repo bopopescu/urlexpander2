@@ -6,6 +6,6 @@ def index(request):
     all_urls = Url.objects.all()
     return render(request, 'index.html', {'all_urls': all_urls})
 
-#def detail(request, album_id):
- #   album = get_list_or_404(Album, pk=album_id)
-  #  return render(request, 'music/detail.html', {'album': album,})
+def detail(request, url_id):
+    url = get_list_or_404(Url, pk=url_id)
+    return render(request, 'detail.html', {'url': url})
