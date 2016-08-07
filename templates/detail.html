@@ -5,6 +5,12 @@
     <title>Details</title>
 </head>
 <body>
-    {{ url }}
+    <h1>"Url " + {{ url.id }}+ ": "</h1>
+    <ul>
+        <li>{{ url.shortened }}</li>
+        <li>{{ url.destination }}</li>
+        <li>{{ url.status }}</li>
+        <li>{{ url.title }}</li>
+    </ul>
 </body>
 </html>
