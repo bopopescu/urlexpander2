@@ -5,10 +5,10 @@
     <title>Delete</title>
 </head>
 <body>
+
     <form action="" method="post">
         {% csrf_token %}
-        <p>Are you sure you want to delete "{{ url.shortened }}"?</p>
+        <p>Are you sure you want to delete {{ url.shortened }} ?</p>
     <input type="submit" value="Confirm" />
-</form>
 </body>
 </html>

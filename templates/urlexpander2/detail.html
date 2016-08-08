@@ -13,5 +13,10 @@
     <p>Destination: {{ url.destination }}</p>
     <p>Status: {{ url.status }}<p>
     <p>Title: {{ url.title }}</p>
+
+    <form action='{% url 'index' %}'>
+            {% csrf_token %}
+            <input type = 'submit' value = 'Home'>
+    </form>
 </body>
 </html>
