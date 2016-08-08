@@ -6,7 +6,6 @@ from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
 from .forms import UserForm
-from django.http import HttpResponse
 import requests, bs4
 
 class IndexView(generic.ListView):
@@ -33,7 +32,7 @@ def add_url(request):
 
     new_url.save()
 
-    return redirect(request, 'urlexpander2/detail.html', new_url.pk)
+    return render(request, 'urlexpander2/detail.html', new_url.pk)
 
 class UrlUpdate(UpdateView):
     model = Url
