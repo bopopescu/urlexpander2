@@ -8,9 +8,12 @@
 {% if all_urls %}
     <h3>Here are all your Urls: </h3>
     {% for url in all_urls %}
-        <form action='#'>
-            <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
+        <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
+        <form action='{% url 'url-delete' url.id %}'>
             <input type = 'submit' value = 'Delete'>
+        </form>
+        <form action='{% url 'url-update' url.id %}'>
+            <input type = 'submit' value = 'Update'>
         </form>
     {% endfor %}
 {% else %}

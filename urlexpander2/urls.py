@@ -22,5 +22,9 @@ urlpatterns = [
     # /urlexpander2/1234
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # /urlexpander/add/
-    url(r'^add/$', views.UrlCreate.as_view(), name = 'url-add')
+    url(r'^add/$', views.UrlCreate.as_view(), name = 'url-add'),
+    # /urlexpander/update/1234
+    url(r'^update/(?P<pk>[0-9]+)$', views.UrlUpdate.as_view(), name = 'url-update'),
+    # /urlexpander/delete/1234
+    url(r'^delete/(?P<pk>[0-9]+)$', views.UrlDelete.as_view(), name = 'url-delete'),
 ]

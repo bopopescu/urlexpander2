@@ -1,5 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 from .models import Url
 
 class IndexView(generic.ListView):
@@ -16,4 +17,13 @@ class DetailView(generic.DetailView):
 class UrlCreate(CreateView):
     model = Url
     fields = ['shortened', 'destination', 'status', 'title']
+
+
+class UrlUpdate(UpdateView):
+    model = Url
+    fields = ['shortened', 'destination', 'status', 'title']
+
+class UrlDelete(DeleteView):
+    model = Url
+    success_url = reverse_lazy('index')
 
