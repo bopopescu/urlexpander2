@@ -16,5 +16,12 @@
 {% else %}
     <h2>You don't have any urls</h2>
 {% endif %}
+
+<form action="{% url 'detail' url.id %}">
+    {% csrf_token %}
+    <input type="text">
+    <input type="submit" value = "Add Url">
+</form>
+
 </body>
 </html>
