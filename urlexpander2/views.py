@@ -10,7 +10,7 @@ from .forms import UserForm
 import requests, bs4
 
 class IndexView(generic.ListView):
-    template_name = 'urlexpander2/index.html'
+    template_name = 'index.html'
     context_object_name = 'all_urls'
 
     def get_queryset(self):
@@ -23,7 +23,6 @@ class DetailView(generic.DetailView):
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
-
 
     r = requests.get(shortened_url)
     beautiful = bs4.BeautifulSoup(r.text)
