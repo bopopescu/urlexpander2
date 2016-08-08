@@ -19,6 +19,8 @@ from . import views
 urlpatterns = [
     # /urlexpander2/
     url(r'^$', views.IndexView.as_view(), name='index'),
+    #/urlexpander2/register
+    url(r'^register/$', views.UserFormView.as_view(), name='register'),
     # /urlexpander2/1234
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # /urlexpander/add/
