@@ -6,6 +6,7 @@ from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
 from .forms import UserForm
+from django.http import HttpResponse
 import requests, bs4
 
 class IndexView(generic.ListView):
@@ -20,7 +21,8 @@ class DetailView(generic.DetailView):
     template_name = 'urlexpander2/detail.html'
 
 def add_url(request):
-    print(str(request.url))
+    html = request.url
+    return HttpResponse(html)
     #new_url = Url()
     #new_url.shortened = request.input
 
