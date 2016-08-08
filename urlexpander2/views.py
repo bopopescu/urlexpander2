@@ -31,13 +31,7 @@ def add_url(request):
     new_url.title = beautiful.title.text
 
     new_url.save()
-
-    template_name = 'urlexpander2/detail.html'
-
-    return redirect(template_name, new_url.pk)
-
-
-
+    return redirect('urlexpander2/detail.html', new_url.pk)
 
 class UrlUpdate(UpdateView):
     model = Url
