@@ -20,7 +20,7 @@ class DetailView(generic.DetailView):
 
 class UrlCreate(CreateView):
     model = Url
-    fields = ['shortened', 'destination', 'status', 'title']
+    fields = ['shortened']
 
 
 class UrlUpdate(UpdateView):
