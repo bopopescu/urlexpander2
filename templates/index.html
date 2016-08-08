@@ -8,7 +8,7 @@
 {% if all_urls %}
     <h3>Here are all your Urls: </h3>
     {% for url in all_urls %}
-        <form action='{% url 'detail' url.id %}'>
+        <form action='#'>
             <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
             <input type = 'submit' value = 'Delete'>
         </form>
@@ -17,7 +17,7 @@
     <h2>You don't have any urls</h2>
 {% endif %}
 
-<form action="{% url 'detail' url.id %}">
+<form action='#'>
     {% csrf_token %}
     <input type="text">
     <input type="submit" value = "Add Url">
