@@ -31,8 +31,8 @@ def add_url(request):
     new_url.status = r.status_code
 
     new_url.save()
-
-    return render(request, 'urlexpander2/detail.html', new_url.pk)
+    all_urls = Url.objects.all()
+    return render(request, 'urlexpander2/index.html', {'all_urls':all_urls})
 
 class UrlUpdate(UpdateView):
     model = Url
