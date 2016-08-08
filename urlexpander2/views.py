@@ -25,5 +25,5 @@ class UrlUpdate(UpdateView):
 
 class UrlDelete(DeleteView):
     model = Url
-    success_url = reverse_lazy('IndexView')
+    success_url = reverse_lazy('index')
 
