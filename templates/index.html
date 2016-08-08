@@ -5,9 +5,9 @@
     <title>UrlExpander2</title>
 </head>
 <body>
-{% if object_list %}
+{% if all_urls %}
     <h3>Here are all your Urls: </h3>
-    {% for url in object_list %}
+    {% for url in all_urls %}
         <form action='#'>
             <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
             <input type = 'submit' value = 'Delete'>
