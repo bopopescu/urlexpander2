@@ -33,7 +33,7 @@ def add_url(request):
 
     new_url.save()
 
-    return redirect('urlexpander2/detail.html', new_url.pk)
+    return redirect(request, 'urlexpander2/detail.html', new_url.pk)
 
 class UrlUpdate(UpdateView):
     model = Url
