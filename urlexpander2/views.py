@@ -22,7 +22,7 @@ class DetailView(generic.DetailView):
 def add_url(request):
     new_url = Url()
 
-    url = requests.get(request.url)
+    url = requests.get(request.__getattribute__(new_url))
     new_url.destination = url.url
     new_url.status = url.status_code
 
