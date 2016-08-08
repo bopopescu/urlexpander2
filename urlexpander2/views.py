@@ -21,7 +21,7 @@ class DetailView(generic.DetailView):
     template_name = 'urlexpander2/detail.html'
 
 def add_url(request):
-    html = request.url
+    html = request.data
     return HttpResponse(html)
     #new_url = Url()
     #new_url.shortened = request.input
