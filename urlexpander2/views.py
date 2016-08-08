@@ -21,9 +21,8 @@ class DetailView(generic.DetailView):
 
 def add_url(request):
     new_url = Url()
-    new_url.shortened = request.POST['shortened']
 
-    url = requests.get(new_url.shortened)
+    url = requests.get(request.url)
     new_url.destination = url.url
     new_url.status = url.status_code
 
