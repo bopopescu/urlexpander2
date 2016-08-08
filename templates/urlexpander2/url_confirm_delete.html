@@ -7,7 +7,8 @@
 <body>
     <h1>Succesfully Deleted!</h1>
     <form action='{% url 'index' %}'>
-        <input type="button" value="Home"/>
+            {% csrf_token %}
+            <input type = 'submit' value = 'Home'>
     </form>
 </body>
 </html>
