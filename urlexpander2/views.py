@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Url
 
 class IndexView(generic.ListView):
-    template_name = 'index.html'
+    template_name = 'urlexpander2/index.html'
     context_object_name = 'all_urls'
 
     def get_queryset(self):
@@ -11,7 +11,7 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Url
-    template_name = 'detail.html'
+    template_name = 'urlexpander2/detail.html'
 
 class UrlCreate(CreateView):
     model = Url
