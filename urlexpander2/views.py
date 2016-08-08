@@ -9,3 +9,5 @@ def index(request):
 def detail(request, url_id):
     url = get_list_or_404(Url, pk=url_id)
     return render(request, 'detail.html', {'url': url})
+
+#def add(request):
