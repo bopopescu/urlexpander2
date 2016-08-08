@@ -9,3 +9,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
+class UrlForm(forms.ModelForm):
+    class Meta:
+        model = Url
+        fields = ['shortened']

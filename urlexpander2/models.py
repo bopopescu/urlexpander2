@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+
 class Url(models.Model):
     shortened = models.URLField()
     destination = models.URLField()
@@ -13,3 +14,4 @@ class Url(models.Model):
 
     def __str__(self):
         return 'Url ' + str(self.id) + ': ' + str(self.shortened)
+

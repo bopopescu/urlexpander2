@@ -21,21 +21,19 @@ class DetailView(generic.DetailView):
     template_name = 'urlexpander2/detail.html'
 
 def add_url(request):
-    html = request.data
-    return HttpResponse(html)
-    #new_url = Url()
-    #new_url.shortened = request.input
+    new_url = Url()
+    shortened_url = request.POST['new_url']
+    r = requests.get(new_url)
+    beautiful = bs4.BeautifulSoup(r.text)
 
-    #r = requests.get(request.data)
+    new_url.shortened = shortened_url
+    new_url.title = beautiful.title.text
+    new_url.destination = r.url
+    new_url.status = r.status_code
 
-    #new_url.destination = url.url
-    #new_url.status = url.status_code
+    new_url.save()
 
-    #beautiful = bs4.BeautifulSoup(url.text)
-    #new_url.title = beautiful.title.text
-
-    #new_url.save()
-    #return redirect('urlexpander2/detail.html', new_url.pk)
+    return redirect('urlexpander2/detail.html', new_url.pk)
 
 class UrlUpdate(UpdateView):
     model = Url
