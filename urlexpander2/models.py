@@ -6,10 +6,14 @@ class Url(models.Model):
     shortened = models.URLField()
     r = requests.get(shortened)
 
-    destination = models.URLField(r.url)
-    status = models.IntegerField(r.status_code)
+    destination = models.URLField()
+    destination = r.url
 
-    title = models.CharField(bs4.BeautifulSoup(r.text).title.text, max_length=500)
+    status = models.IntegerField()
+    status = r.status_code
+
+    title = models.CharField(max_length=500)
+    title = bs4.BeautifulSoup(r.text).title.text
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
