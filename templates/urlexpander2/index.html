@@ -9,10 +9,10 @@
     <h3>Here are all your Urls: </h3>
     {% for url in all_urls %}
         <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
-        <form action='{% url 'url-delete' url.id %}'>
-            <input type = 'submit' value = 'Delete'>
+        <form action='{% url 'url-delete' url.id %}' method="post">
+            <button type="submit">Delete</button>
         </form>
-        <form action='{% url 'url-update' url.id %}'>
+        <form action='{% url 'url-update' url.id %}' method="post">
             <input type = 'submit' value = 'Update'>
         </form>
     {% endfor %}
@@ -20,7 +20,7 @@
     <h2>You don't have any urls</h2>
 {% endif %}
 
-<form action='{% url 'url-add' %}'>
+<form action='{% url 'url-add' %}' method="post">
     {% csrf_token %}
     <br>
     <input type="submit" value = "Add Url">
