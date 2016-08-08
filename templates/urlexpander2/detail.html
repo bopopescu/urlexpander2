@@ -8,10 +8,10 @@
     {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
-    <h1>"Url: {{ url.pk }}</h1>
-    <p>"{{ url.shortened }}"</p>
-    <p>"{{ url.destination }}"</p>
-    <p>"{{ url.status }}"</p>
-    <p>"{{ url.title }}"</p>
+    <h1>Url: {{ url.pk }}</h1>
+    <p>Original: {{ url.shortened }}</p>
+    <p>Destination: {{ url.destination }}</p>
+    <p>Status: {{ url.status }}p>
+    <p>Title: {{ url.title }}</p>
 </body>
 </html>
