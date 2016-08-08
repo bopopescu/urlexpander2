@@ -10,7 +10,7 @@ from .forms import UserForm
 import requests, bs4
 
 class IndexView(generic.ListView):
-    template_name = 'index.html'
+    template_name = 'urlexpander2/index.html'
     context_object_name = 'all_urls'
 
     def get_queryset(self):
