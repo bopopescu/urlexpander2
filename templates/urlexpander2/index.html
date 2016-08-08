@@ -27,6 +27,10 @@
     <br>
     <input type="submit" value = "Add Url">
 </form>
-
+<form action='{% url 'url-add' %}' method="post">
+    {% csrf_token %}
+    <br>
+    <input type="submit" value = "Add Url">
+</form>
 </body>
 </html>
