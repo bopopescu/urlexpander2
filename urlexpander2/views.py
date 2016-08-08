@@ -1,11 +1,12 @@
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
 from .forms import UserForm
+import requests, bs4
 
 class IndexView(generic.ListView):
     template_name = 'urlexpander2/index.html'
@@ -18,9 +19,24 @@ class DetailView(generic.DetailView):
     model = Url
     template_name = 'urlexpander2/detail.html'
 
-class UrlCreate(CreateView):
-    model = Url
-    fields = ['shortened']
+def add_url(request):
+    new_url = Url()
+    new_url.shortened = request.POST['shortened']
+
+    url = requests.get(new_url.shortened)
+    new_url.destination = url.url
+    new_url.status = url.status_code
+
+    beautiful = bs4.BeautifulSoup(url.text)
+    new_url.title = beautiful.title.text
+
+    new_url.save()
+
+    template_name = 'urlexpander2/detail.html'
+
+    return redirect(template_name, new_url.pk)
+
+
 
 
 class UrlUpdate(UpdateView):
