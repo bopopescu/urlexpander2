@@ -8,7 +8,7 @@ class Url(models.Model):
     title = models.CharField(max_length = 500)
 
     def get_absolute_url(self):
-        return reverse('detail.html', kwargs={'pk': self.pk})
+        return reverse('urlexpander2/detail.html', kwargs={'pk': self.pk})
 
     def __str__(self):
         return 'Url ' + str(self.id) + ': ' + str(self.shortened)
