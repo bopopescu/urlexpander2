@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
+from django.http import HttpResponse
 from .forms import UserForm
 import requests, bs4
 
@@ -22,17 +23,19 @@ class DetailView(generic.DetailView):
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
-    r = requests.get(new_url)
-    beautiful = bs4.BeautifulSoup(r.text)
+    return HttpResponse(new_url)
 
-    new_url.shortened = shortened_url
-    new_url.title = beautiful.title.text
-    new_url.destination = r.url
-    new_url.status = r.status_code
+    #r = requests.get(new_url)
+    #beautiful = bs4.BeautifulSoup(r.text)
 
-    new_url.save()
-    all_urls = Url.objects.all()
-    return render(request, 'urlexpander2/index.html', {'all_urls':all_urls})
+    #new_url.shortened = shortened_url
+    #new_url.title = beautiful.title.text
+    #new_url.destination = r.url
+    #new_url.status = r.status_code
+
+    #new_url.save()
+    #all_urls = Url.objects.all()
+    #return render(request, 'urlexpander2/index.html', {'all_urls':all_urls})
 
 class UrlUpdate(UpdateView):
     model = Url
