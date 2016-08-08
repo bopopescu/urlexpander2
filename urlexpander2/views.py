@@ -23,7 +23,7 @@ class DetailView(generic.DetailView):
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
-    return HttpResponse(new_url)
+    return HttpResponse(shortened_url)
 
     #r = requests.get(new_url)
     #beautiful = bs4.BeautifulSoup(r.text)
