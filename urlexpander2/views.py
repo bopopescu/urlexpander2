@@ -1,13 +1,12 @@
-from django.shortcuts import render, get_list_or_404
+from django.views import generic
 from .models import Url
 
+class IndexView(generic.ListView):
+    template_name = 'index.html'
 
-def index(request):
-    all_urls = Url.objects.all()
-    return render(request, 'index.html', {'all_urls': all_urls})
+    def get_queryset(self):
+        return Url.objects.all()
 
-def detail(request, url_id):
-    url = get_list_or_404(Url, pk=url_id)
-    return render(request, 'detail.html', {'url': url})
-
-#def add(request):
+class DetailView(generic.DetailView):
+    model = Url
+    template_name = 'detail.html'

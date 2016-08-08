@@ -18,9 +18,7 @@ from . import views
 
 urlpatterns = [
     # /urlexpander2/
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
     # /urlexpander2/1234
-    url(r'^(?P<url_id>[0-9]+)/$', views.detail, name='detail'),
-    #/urlexpander2/add/
-    #url(r'^add/$', views.add, name = 'add')
+    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
 ]
