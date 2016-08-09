@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
-from django.http import HttpResponse
 from .forms import UserForm
 import requests, bs4
 
