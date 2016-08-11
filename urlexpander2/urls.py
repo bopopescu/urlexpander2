@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from . import views
 
 urlpatterns = [
-    url(r'^', include('django.contrib.auth.urls')),
+    url(r'^', include('django.contrib.auth.urls.login')),
     # /urlexpander2/
     url(r'^home$', views.IndexView.as_view(), name='index'),
     #/urlexpander2/register
