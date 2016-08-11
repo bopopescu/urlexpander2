@@ -23,10 +23,10 @@ urlpatterns = [
     url(r'^register/$', views.UserFormView.as_view(), name='register'),
     # /urlexpander2/1234
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
-    # /urlexpander/add/
+    # /urlexpander2/add/
     url(r'^add/$', views.add_url, name = 'url-add'),
-    # /urlexpander/update/1234
+    # /urlexpander2/update/1234
     url(r'^update/(?P<pk>[0-9]+)$', views.UrlUpdate.as_view(), name = 'url-update'),
-    # /urlexpander/delete/1234
+    # /urlexpander2/delete/1234
     url(r'^delete/(?P<pk>[0-9]+)$', views.UrlDelete.as_view(), name = 'url-delete'),
 ]
