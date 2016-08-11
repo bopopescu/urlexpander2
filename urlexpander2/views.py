@@ -10,8 +10,8 @@ import requests, bs4
 
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='urlexpander2/registration_form.html')
 class IndexView(generic.ListView):
+    @login_required(login_url='urlexpander2/registration_form.html')
     template_name = 'urlexpander2/index.html'
     context_object_name = 'all_urls'
 
