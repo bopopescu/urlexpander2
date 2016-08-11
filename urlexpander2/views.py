@@ -98,5 +98,6 @@ class LoginFormView(View):
                 else:
                     return redirect('register')
 
-        return render(request, self.template_name, {'form': form})
+        else:
+            return render(request, self.template_name, {'form': form})
 
