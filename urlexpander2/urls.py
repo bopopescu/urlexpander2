@@ -17,9 +17,10 @@ from django.conf.urls import url, include
 from . import views
 
 urlpatterns = [
-    url(r'^', views.LoginFormView.as_view(), name='login'),
+
+    #url(r'^', views.LoginFormView.as_view(), name='login'),
     # /urlexpander2/
-    url(r'^index$', views.IndexView.as_view(), name='index'),
+    url(r'^', views.IndexView.as_view(), name='index'),
     #/urlexpander2/register
     url(r'^register/$', views.UserFormView.as_view(), name='register'),
     # /urlexpander2/1234
