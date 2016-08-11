@@ -76,12 +76,14 @@ class UserFormView(View):
 
 class LoginFormView(View):
     form_class = LoginForm
-    template_name = 'registration/login.html'
+    login_template = 'registration/login.html'
+    home_template = 'urlexpander2/index.html'
+    registration_template = 'urlexpander2/registration_form.html'
 
     # display blank form
     def get(self, request):
         form = self.form_class(None)
-        return render(request,self.template_name, {'form': form})
+        return render(request,self.login_template, {'form': form})
 
     # process form data
     def post(self, request):
@@ -94,7 +96,7 @@ class LoginFormView(View):
             if user is not None:
                 if user.is_active:
                     login(request,user)
-                    return redirect('index')
-                return redirect('register')
+                    return render(request, self.home_template)
+                return render(request, self.registration_template, {'form': form})
             return render(request, self.template_name, {'form': form})
 
