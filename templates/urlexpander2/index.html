@@ -26,6 +26,7 @@
 <form action='{% url 'url-add' %}' method="post">
     {% csrf_token %}
     <br>
+    <label for="new_url">New Url (required): </label>
     <input type="text" name="new_url">
     <input type="submit" value = "Add Url">
 </form>
