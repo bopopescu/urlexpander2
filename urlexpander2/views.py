@@ -8,10 +8,8 @@ from .models import Url
 from .forms import UserForm
 import requests, bs4
 
-from django.contrib.auth.decorators import login_required
-
 class IndexView(generic.ListView):
-    @login_required(login_url='urlexpander2/registration_form.html')
+
     template_name = 'urlexpander2/index.html'
     context_object_name = 'all_urls'
 
