@@ -95,9 +95,6 @@ class LoginFormView(View):
                 if user.is_active:
                     login(request,user)
                     return redirect('index')
-                else:
-                    return redirect('register')
-
-        else:
+                return redirect('register')
             return render(request, self.template_name, {'form': form})
 
