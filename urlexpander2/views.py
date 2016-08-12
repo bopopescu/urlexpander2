@@ -14,8 +14,7 @@ def index(request):
 @login_required
 def detail(request, pk):
     url = Url.objects.get(pk=pk)
-    return render(requests, 'urlexpander2/detail.html', {'url': url})
-
+    return render(request, 'urlexpander2/detail.html', {'url': url})
 
 @login_required
 def add_url(request):
