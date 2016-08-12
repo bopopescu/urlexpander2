@@ -8,9 +8,8 @@ class Url(models.Model):
     status = models.IntegerField()
     title = models.CharField(max_length=500)
 
-
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'pk': self.pk})
+    #def get_absolute_url(self):
+     #   return reverse('detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return 'Url ' + str(self.id) + ': ' + str(self.shortened)
