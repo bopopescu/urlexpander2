@@ -6,14 +6,14 @@ from .models import Url
 import requests, bs4
 
 class IndexView(generic.ListView):
-    template_name = 'urlexpander2/index.html'
+    template_name = 'index.html'
     context_object_name = 'all_urls'
     def get_queryset(self):
         return Url.objects.all()
 
 class DetailView(generic.DetailView):
     model = Url
-    template_name = 'urlexpander2/detail.html'
+    template_name = 'detail.html'
 
 def add_url(request):
     new_url = Url()
@@ -25,7 +25,7 @@ def add_url(request):
     new_url.destination = r.url
     new_url.status = r.status_code
     new_url.save()
-    return render(request, 'urlexpander2/detail.html', {'url':new_url})
+    return render(request, 'detail.html', {'url':new_url})
 
 class UrlUpdate(UpdateView):
     model = Url
