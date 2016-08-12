@@ -28,6 +28,12 @@
     <label for="new_url">Add a new URL: </label>
     <input type="text" name="new_url" required>
     <input type="submit" value = "Submit">
+</form>'
+
+<form action="{% url 'logout' %}" method="get">
+    {% csrf_token %}
+    <br>
+    <input type="submit" value="Logout">
 </form>
 </body>
 </html>

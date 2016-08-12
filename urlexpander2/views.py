@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse_lazy
 from .models import Url
 import requests, bs4, json
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 @login_required
 def index(request):
@@ -37,6 +38,12 @@ def add_url(request):
 
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return render(request, 'registration/login.html')
+
 
 class UrlUpdate(UpdateView):
     model = Url
