@@ -6,14 +6,26 @@
 </head>
 <body>
     <h1>Login</h1>
-    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+
+    <form method="post" action="{% url "django.contrib.auth.views.login" %}">
         {% csrf_token %}
-        {% include 'urlexpander2/form-template.html' %}
-        <div class = "form-group">
-            <div class = 'col-sm-offset-2 col-sm-10'>
-                <button type="submit" class="btn btn-success">Login</button>
-            </div>
-        </div>
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+    <input type="submit" class="btn btn-success">Login</input>
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% else %}
+          <a href="{% url "django.contrib.auth.views.login" %}">Log-In</a>
+          <a href="{% url "django.contrib.auth.views.logout" %}">Log out</a>
+    {% endif %}
     </form>
 </body>
 </html>
