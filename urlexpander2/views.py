@@ -72,8 +72,8 @@ class UserFormView(View):
             if user is not None:
                 if user.is_active:
                     login(request,user)
-                    return render(request, self.template_name, {'form': form})
-                    #return redirect('index')
+                    #return render(request, self.template_name, {'form': form})
+                    return redirect('index')
 
         return render(request, self.template_name, {'form': form})
 
@@ -128,6 +128,7 @@ class LoginFormView(View):
                     return render(request, self.home_template)
                 return render(request, self.registration_template, {'form': form})
             return render(request, self.login_template, {'form': form})
+        return render(request, self.login_template, {'form': form})
 
 
 
