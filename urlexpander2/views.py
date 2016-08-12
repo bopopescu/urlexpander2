@@ -27,7 +27,7 @@ def add_url(request):
     new_url.destination = r.url
     new_url.status = r.status_code
     new_url.save()
-    return redirect('urlexpander2/detail.html', {'url':new_url})
+    return reverse_lazy('detail', {'url':new_url})
 
 class UrlUpdate(UpdateView):
     model = Url
