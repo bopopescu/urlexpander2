@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
 import requests, bs4
+from django.contrib.auth.decorators import login_required
 
+@login_required()
 class IndexView(generic.ListView):
     template_name = 'urlexpander2/index.html'
     context_object_name = 'all_urls'
