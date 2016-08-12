@@ -30,6 +30,7 @@ def add_url(request):
 class UrlUpdate(UpdateView):
     model = Url
     fields = ['shortened', 'destination', 'status', 'title']
+    template_name_suffix = 'urlexpander2/_update_form'
 
 class UrlDelete(DeleteView):
     model = Url
