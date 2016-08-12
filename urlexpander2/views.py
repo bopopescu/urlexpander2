@@ -1,10 +1,9 @@
 from django.views import generic
 from django.views.generic.edit import UpdateView, DeleteView
-from django.shortcuts import render,redirect
+from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
 from .forms import UrlForm
-
 
 import requests, bs4
 
@@ -28,7 +27,7 @@ def add_url(request):
     new_url.destination = r.url
     new_url.status = r.status_code
     new_url.save()
-    return render(request, 'urlexpander2/detail.html', {'url':new_url})
+    return redirect('urlexpander2/detail.html', {'url':new_url})
 
 class UrlUpdate(UpdateView):
     model = Url
