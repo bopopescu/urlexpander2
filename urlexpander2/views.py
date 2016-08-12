@@ -102,9 +102,32 @@ class LoginFormView(View):
                 return render(request, self.registration_template, {'form': form})
             return render(request, self.login_template, {'form': form})
 
-class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
-    def confirm_login_allowed(self, user):
-        pass
+class LoginFormView(View):
+    form_class = LoginForm
+    login_template = 'registration/login.html'
+    home_template = 'urlexpander2/index.html'
+    registration_template = 'urlexpander2/registration_form.html'
+
+    # display blank form
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request,self.login_template, {'form': form})
+
+    # process form data
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            #returns User objects if credentials are correct
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request,user)
+                    return render(request, self.home_template)
+                return render(request, self.registration_template, {'form': form})
+            return render(request, self.login_template, {'form': form})
+
 
 
 
