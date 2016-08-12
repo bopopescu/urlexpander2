@@ -18,7 +18,7 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^', views.AuthenticationFormWithInactiveUsersOkay.as_view(), name='login'),
+    url(r'^', views.AuthenticationFormWithInactiveUsersOkay, name='login'),
     # /urlexpander2/
     url(r'^/$', views.IndexView.as_view(), name='index'),
     #/urlexpander2/register
