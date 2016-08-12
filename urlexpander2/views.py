@@ -98,5 +98,5 @@ class LoginFormView(View):
                     login(request,user)
                     return render(request, self.home_template)
                 return render(request, self.registration_template, {'form': form})
-            return render(request, self.template_name, {'form': form})
+            return render(request, self.login_template, {'form': form})
 
