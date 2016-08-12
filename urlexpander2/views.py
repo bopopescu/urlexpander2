@@ -3,8 +3,6 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
-from .forms import UrlForm
-
 import requests, bs4
 
 class IndexView(generic.ListView):
