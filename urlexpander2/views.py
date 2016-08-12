@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse_lazy
 from .models import Url
 from .forms import UserForm, LoginForm
 
+from django.contrib.auth.forms import AuthenticationForm
+
 import requests, bs4
 
 class IndexView(generic.ListView):
@@ -99,4 +101,13 @@ class LoginFormView(View):
                     return render(request, self.home_template)
                 return render(request, self.registration_template, {'form': form})
             return render(request, self.login_template, {'form': form})
+
+class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
+    def confirm_login_allowed(self, user):
+        pass
+
+
+
+
+
 
