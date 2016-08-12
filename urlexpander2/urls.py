@@ -17,13 +17,10 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    #urlexpander2/logout
-    url(r'^logout/$', views.logout, name='logout'),
-
-
-
     # /urlexpander2/
     url(r'^$', views.index, name='index'),
+    # urlexpander2/logout
+    url(r'^logout/$', views.logout_view, name='logout'),
     # /urlexpander2/1234
     url(r'^(?P<pk>[0-9]+)/$', views.detail, name='detail'),
     # /urlexpander2/add/
