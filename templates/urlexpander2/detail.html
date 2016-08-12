@@ -5,18 +5,19 @@
     <title>Details</title>
 </head>
 <body>
+{% if url %}
     {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
-    <h1>Url: {{ url.pk }}</h1>
+    <h1>Url: {{ url.pk }} </h1>
     <p>Original: {{ url.shortened }}</p>
     <p>Destination: {{ url.destination }}</p>
     <p>Status: {{ url.status }}<p>
     <p>Title: {{ url.title }}</p>
-
-    <form action='{% url 'index' %}'>
-            {% csrf_token %}
-            <input type = 'submit' value = 'Home'>
-    </form>
+{% endif %}
+<form action='{% url 'index' %}'>
+    {% csrf_token %}
+    <input type = 'submit' value = 'Home'>
+</form>
 </body>
 </html>
