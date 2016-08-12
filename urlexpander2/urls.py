@@ -20,7 +20,7 @@ urlpatterns = [
     # /urlexpander2/
     url(r'^$', views.index, name='index'),
     # /urlexpander2/1234
-    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
+    url(r'^(?P<pk>[0-9]+)/$', views.detail, name='detail'),
     # /urlexpander2/add/
     url(r'^add/$', views.add_url, name = 'url-add'),
     # /urlexpander2/update/1234

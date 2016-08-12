@@ -1,4 +1,4 @@
-from django.views import generic
+from django.shortcuts import get_object_or_404
 from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
@@ -11,10 +11,12 @@ def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
 
-class DetailView(generic.DetailView):
-    model = Url
-    template_name = 'urlexpander2/detail.html'
+@login_required
+def detail(request, pk):
+    url = get_object_or_404(Url, pk=pk)
+    return render(requests, 'urlexpander2/detail.html', {'url': url})
 
+@login_required
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
