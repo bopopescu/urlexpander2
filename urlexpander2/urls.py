@@ -17,6 +17,11 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    #urlexpander2/logout
+    url(r'^logout/$', views.logout, name='logout'),
+
+
+
     # /urlexpander2/
     url(r'^$', views.index, name='index'),
     # /urlexpander2/1234

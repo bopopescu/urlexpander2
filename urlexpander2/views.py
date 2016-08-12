@@ -42,7 +42,7 @@ def add_url(request):
 @login_required
 def logout_view(request):
     logout(request)
-    redirect('urlexpander2/index.html')
+    return redirect('urlexpander2/index.html')
 
 
 class UrlUpdate(UpdateView):
