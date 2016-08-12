@@ -1,21 +1,15 @@
 from django.views import generic
 from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate, login
-from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
-from .forms import UserForm, LoginForm
 
-from django.contrib.auth.forms import AuthenticationForm
 
 import requests, bs4
 
 class IndexView(generic.ListView):
-
     template_name = 'urlexpander2/index.html'
     context_object_name = 'all_urls'
-
     def get_queryset(self):
         return Url.objects.all()
 
@@ -36,8 +30,7 @@ def add_url(request):
     new_url.status = r.status_code
 
     new_url.save()
-    all_urls = Url.objects.all()
-    return render(request, 'urlexpander2/index.html', {'all_urls':all_urls})
+    return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
 class UrlUpdate(UpdateView):
     model = Url
@@ -47,88 +40,9 @@ class UrlDelete(DeleteView):
     model = Url
     success_url = reverse_lazy('index')
 
-class UserFormView(View):
-    form_class = UserForm
-    template_name = 'urlexpander2/registration_form.html'
 
-    # display blank form
-    def get(self, request):
-        form = self.form_class(None)
-        return render(request,self.template_name, {'form': form})
 
-    # process form data
-    def post(self, request):
-        form = self.form_class(request.POST)
 
-        if form.is_valid():
-            user = form.save(commit=False)
-            # cleaned (normalized) data
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user.set_password(password)
-            user.save()
-            #returns User objects if credentials are correct
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request,user)
-                    #return render(request, self.template_name, {'form': form})
-                    return redirect('index')
-
-        return render(request, self.template_name, {'form': form})
-
-class LoginFormView(View):
-    form_class = LoginForm
-    login_template = 'registration/login.html'
-    home_template = 'urlexpander2/index.html'
-    registration_template = 'urlexpander2/registration_form.html'
-
-    # display blank form
-    def get(self, request):
-        form = self.form_class(None)
-        return render(request,self.login_template, {'form': form})
-
-    # process form data
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            #returns User objects if credentials are correct
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request,user)
-                    return render(request, self.home_template)
-                return render(request, self.registration_template, {'form': form})
-            return render(request, self.login_template, {'form': form})
-
-class LoginFormView(View):
-    form_class = LoginForm
-    login_template = 'registration/login.html'
-    home_template = 'urlexpander2/index.html'
-    registration_template = 'urlexpander2/registration_form.html'
-
-    # display blank form
-    def get(self, request):
-        form = self.form_class(None)
-        return render(request,self.login_template, {'form': form})
-
-    # process form data
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            #returns User objects if credentials are correct
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request,user)
-                    return render(request, self.home_template)
-                return render(request, self.registration_template, {'form': form})
-            return render(request, self.login_template, {'form': form})
-        return render(request, self.login_template, {'form': form})
 
 
 
