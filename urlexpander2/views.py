@@ -42,7 +42,7 @@ def add_url(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return render(request, 'registration/login.html')
+    return render(request, 'urlexpander2/index.html')
 
 
 class UrlUpdate(UpdateView):
