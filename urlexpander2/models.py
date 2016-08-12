@@ -16,3 +16,6 @@ class Url(models.Model):
     def __str__(self):
         return 'Url ' + str(self.id) + ': ' + str(self.shortened)
 
+
+
+

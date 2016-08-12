@@ -1,11 +1,10 @@
-from django.shortcuts import redirect
 from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
 import requests, bs4, json
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 
 @login_required
 def index(request):
@@ -39,11 +38,19 @@ def add_url(request):
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
-@login_required
 def logout_view(request):
     logout(request)
     return render(request, 'registration/login.html')
 
+def login_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username, password)
+    if user is not None:
+        login(request, user)
+        return render(request, 'urlexpander2/index.html')
+    else:
+        return render(request, 'urlexpander2/login.html')
 
 class UrlUpdate(UpdateView):
     model = Url
