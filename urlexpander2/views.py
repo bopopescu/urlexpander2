@@ -39,7 +39,6 @@ def add_url(request):
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
-@login_required
 def logout_view(request):
     logout(request)
     return render(request, 'urlexpander2/index.html')
