@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
@@ -42,7 +42,7 @@ def add_url(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return render(request, 'urlexpander2/index.html')
+    return redirect('urlexpander2/index.html')
 
 
 class UrlUpdate(UpdateView):
