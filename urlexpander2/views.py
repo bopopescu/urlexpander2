@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
 import requests, bs4
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
