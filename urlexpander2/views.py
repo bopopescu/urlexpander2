@@ -3,8 +3,13 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
+<<<<<<< HEAD
 from .forms import UrlForm
 
+=======
+from django.http import HttpResponse
+from .forms import UserForm
+>>>>>>> parent of 1644a8b... last fix
 import requests, bs4
 
 class IndexView(generic.ListView):
