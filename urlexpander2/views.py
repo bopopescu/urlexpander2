@@ -7,21 +7,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
-class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
-    def confirm_login_allowed(self, user):
-        pass
+#class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
+ #   def confirm_login_allowed(self, user):
+  #      pass
 
-@login_required
+#@login_required
 def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
 
-@login_required
+#@login_required
 def detail(request, pk):
     url = Url.objects.get(pk=pk)
     return render(request, 'urlexpander2/detail.html', {'url': url})
 
-@login_required
+#@login_required
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
@@ -42,20 +42,6 @@ def add_url(request):
 
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
-
-def logout_view(request):
-    logout(request)
-    return render(request, 'registration/login.html')
-
-def login_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username, password)
-    if user is not None:
-        login(request, user)
-        return render(request, 'urlexpander2/index.html')
-    else:
-        return render(request, 'urlexpander2/login.html')
 
 class UrlUpdate(UpdateView):
     model = Url

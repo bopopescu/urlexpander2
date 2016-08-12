@@ -19,10 +19,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # urlexpander2/accounts/login
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    # urlexpander2/accounts/logout
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next': 'urlexpander2/index.html'}),
     url(r'^', include('urlexpander2.urls')),
 ]
 
