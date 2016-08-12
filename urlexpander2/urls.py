@@ -22,7 +22,7 @@ urlpatterns = [
     # urlexpander2/accounts/login
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     # urlexpander2/accounts/logout
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': ''}),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next': 'urlexpander2/index.html'}),
     # /urlexpander2/1234
     url(r'^(?P<pk>[0-9]+)/$', views.detail, name='detail'),
     # /urlexpander2/add/
