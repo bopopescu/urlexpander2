@@ -42,6 +42,7 @@ def add_url(request):
 @login_required
 def logout_view(request):
     logout(request)
+    return render(request, 'registration/login.html')
 
 
 class UrlUpdate(UpdateView):
