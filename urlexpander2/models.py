@@ -8,7 +8,7 @@ class Url(models.Model):
     status = models.IntegerField()
     title = models.CharField(max_length=500)
     snapshot_url = models.CharField(max_length=1000)
-    timestamp = models.TextField(max_length=15)
+    timestamp = models.CharField(max_length=15)
 
     #def get_absolute_url(self):
      #   return reverse('detail', kwargs={'pk': self.pk})
