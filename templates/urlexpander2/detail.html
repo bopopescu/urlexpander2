@@ -14,6 +14,8 @@
     <p>Destination: {{ url.destination }}</p>
     <p>Status: {{ url.status }}<p>
     <p>Title: {{ url.title }}</p>
+    <p>Wayback Snapshot: {{ url.snapshot_url }}</p>
+    <p>Wayback Timestamp: {{ url.timestamp }}</p>
 {% endif %}
 <form action='{% url 'index' %}'>
     {% csrf_token %}

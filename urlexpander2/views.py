@@ -3,7 +3,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
-import requests, bs4
+import requests, bs4, json
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -27,6 +27,15 @@ def add_url(request):
     new_url.title = beautiful.title.text
     new_url.destination = r.url
     new_url.status = r.status_code
+
+    arch_url = 'http://archive.org/wayback/available?url=' + shortened_url
+    checked = requests.get(arch_url)
+    data = json.loads(checked.text)
+    snapshot = data['archived_snapshots']['closest']['url']
+    timestamp = data['archived_snapshots']['closest']['timestamp']
+    new_url.snapshot_url = snapshot
+    new_url.timestamp = timestamp
+
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
