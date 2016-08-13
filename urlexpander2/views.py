@@ -7,11 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
-#class AuthenticationFormWithInactiveUsersOkay(AuthenticationForm):
- #   def confirm_login_allowed(self, user):
-  #      pass
-
-#@login_required
+@login_required
 def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
