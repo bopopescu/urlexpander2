@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from . import views
+from django.contrib.auth.views import login, logout
 
 urlpatterns = [
     # /urlexpander2/
@@ -29,7 +30,7 @@ urlpatterns = [
     url(r'^delete/(?P<pk>[0-9]+)$', views.UrlDelete.as_view(), name = 'url-delete'),
 
     # /urlexpander2/login
-    url(r'^login/$', views.login, name='login')
+    url(r'^login/$', login,  name='login')
 
 
 ]
