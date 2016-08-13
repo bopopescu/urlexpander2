@@ -48,7 +48,8 @@ class UrlDelete(DeleteView):
     model = Url
     success_url = reverse_lazy('index')
 
-
+def login(request):
+    return render(request, 'registration/login.html')
 
 
 

@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^delete/(?P<pk>[0-9]+)$', views.UrlDelete.as_view(), name = 'url-delete'),
 
     # /urlexpander2/login
-    url(r'^login/$', auth_views.login)
+    url(r'^login/$', views.login, name = 'login')
 
 
 ]
