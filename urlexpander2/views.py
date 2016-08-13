@@ -12,12 +12,12 @@ def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
 
-#@login_required
+@login_required(login_url='/urlexpander2/login', redirect_field_name='detail')
 def detail(request, pk):
     url = Url.objects.get(pk=pk)
     return render(request, 'urlexpander2/detail.html', {'url': url})
 
-#@login_required
+@login_required(login_url='/urlexpander2/login', redirect_field_name='url-add')
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
@@ -39,11 +39,13 @@ def add_url(request):
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
+@login_required(login_url='/urlexpander2/login', redirect_field_name='url-update')
 class UrlUpdate(UpdateView):
     model = Url
     fields = ['shortened', 'destination', 'status', 'title']
     template_name_suffix = '_update_form'
 
+@login_required(login_url='/urlexpander2/login', redirect_field_name='url-delete')
 class UrlDelete(DeleteView):
     model = Url
     success_url = reverse_lazy('index')
