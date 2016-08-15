@@ -8,12 +8,12 @@
 {% if all_urls %}
     <h3>Here are all your Urls: </h3>
     {% for url in all_urls %}
-        <li><a href='{% url 'detail' url.id %}'>{{ url.shortened }}</a></li>
-        <form action='{% url 'url-delete' url.id %}'>
+        <li><a href='{% url 'urlexpander2:detail' url.id %}'>{{ url.shortened }}</a></li>
+        <form action='{% url 'urlexpander2:url-delete' url.id %}'>
             {% csrf_token %}
             <button type="submit">Delete</button>
         </form>
-        <form action='{% url 'url-update' url.id %}'>
+        <form action='{% url 'urlexpander2:url-update' url.id %}'>
             {% csrf_token %}
             <input type = 'submit' value = 'Update'>
         </form>
@@ -22,7 +22,7 @@
     <h2>You don't have any urls</h2>
 {% endif %}
 
-<form action='{% url 'url-add' %}' method="post">
+<form action='{% url 'urlexpander2:url-add' %}' method="post">
     {% csrf_token %}
     <br>
     <label for="new_url">Add a new URL: </label>
