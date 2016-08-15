@@ -17,7 +17,7 @@
     <p>Wayback Snapshot: {{ url.snapshot_url }}</p>
     <p>Wayback Timestamp: {{ url.timestamp }}</p>
 {% endif %}
-<form action='{% url 'index' %}'>
+<form action='{% url 'urlexpander2:index' %}'>
     {% csrf_token %}
     <input type = 'submit' value = 'Home'>
 </form>
