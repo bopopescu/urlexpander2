@@ -1,23 +1,23 @@
 from django.views.generic.edit import UpdateView, DeleteView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
+from .forms import UserForm
 import requests, bs4, json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 
-@login_required(login_url='/urlexpander2/login', redirect_field_name='index')
+@login_required(login_url='/urlexpander/accounts/login/')
 def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
 
-@login_required(login_url='/urlexpander2/login', redirect_field_name='detail')
+@login_required(login_url='/urlexpander/accounts/login/')
 def detail(request, pk):
     url = Url.objects.get(pk=pk)
     return render(request, 'urlexpander2/detail.html', {'url': url})
 
-@login_required(login_url='/urlexpander2/login', redirect_field_name='url-add')
+@login_required(login_url='/urlexpander/accounts/login/')
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
@@ -58,13 +58,8 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                events = Event.objects.filter(members__pk__contains=request.user.pk)
-                return redirect('movie:index')
-            else:
-                return render(request, 'registration/login.html', {'error_message': 'Your account has been disabled'})
-        else:
-            return render(request, 'registration/login.html', {'error_message': 'Invalid login'})
-    return render(request, 'registration/login.html')
+                return redirect('urlexpander2:index')
+    return render(request, 'registration/login.html', {'error_message': 'Invalid login'})
 
 def logout_user(request):
     logout(request)
@@ -72,7 +67,7 @@ def logout_user(request):
     context = {
         "form": form,
     }
-    return render(request, 'movie/login.html', context)
+    return render(request, 'registration/login.html', context)
 
 
 
