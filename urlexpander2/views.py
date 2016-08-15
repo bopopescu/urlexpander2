@@ -50,6 +50,7 @@ def UrlUpdate(request, pk):
                                     'timestamp': url.timestamp})
         return render(request, 'urlexpander2/url_update_form.html', {'form': form})
     else:
+        url = get_object_or_404(Url, pk=pk)
         form = UrlEditForm(request.POST or None)
         url = form.save()
         url.save()
