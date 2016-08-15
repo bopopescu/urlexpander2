@@ -51,8 +51,12 @@ def UrlUpdate(request, pk):
         return render(request, 'urlexpander2/url_update_form.html', {'form': form})
     else:
         url = get_object_or_404(Url, pk=pk)
-        form = UrlEditForm(request.POST or None)
-        url = form.save()
+        url.shortened = request.POST['shortened']
+        url.destination = request.POST['destination']
+        url.status = request.POST['status']
+        url.title = request.POST['title']
+        url.snapshot_url = request.POST['snapshot_url']
+        url.timestamp = request.POST['timestamp']
         url.save()
         return redirect('urlexpander2:index')
 
