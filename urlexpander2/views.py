@@ -59,7 +59,7 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 return redirect('urlexpander2:index')
-    return render(request, 'registration/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'registration/login.html')
 
 def logout_user(request):
     logout(request)
