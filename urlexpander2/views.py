@@ -48,7 +48,7 @@ class UrlUpdate(UpdateView):
 # @login_required(login_url='/urlexpander2/login', redirect_field_name='url-delete')
 class UrlDelete(DeleteView):
     model = Url
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('urlexpander2:index')
 
 def login_user(request):
     if request.method == "POST":
