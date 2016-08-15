@@ -38,7 +38,7 @@ def add_url(request):
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
-# @login_required(login_url='/urlexpander2/login', redirect_field_name='url-update')
+@login_required(login_url='/urlexpander/accounts/login/')
 def UrlUpdate(request, pk):
     if request.method != 'POST':
         url = get_object_or_404(Url, pk=pk)
@@ -56,10 +56,11 @@ def UrlUpdate(request, pk):
         return redirect('urlexpander2:index')
 
 
-# @login_required(login_url='/urlexpander2/login', redirect_field_name='url-delete')
-def UrlDelete(DeleteView):
-    model = Url
-    success_url = reverse_lazy('urlexpander2:index')
+@login_required(login_url='/urlexpander/accounts/login/')
+def UrlDelete(request, pk):
+    url = get_object_or_404(Url, pk=pk)
+    url.delete()
+    return redirect('urlexpander2:index')
 
 def login_user(request):
     if request.method == "POST":
