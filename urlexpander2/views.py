@@ -6,17 +6,17 @@ import requests, bs4, json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-@login_required(login_url='/urlexpander/accounts/login/')
+@login_required(login_url='/urlexpander2/accounts/login/')
 def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
 
-@login_required(login_url='/urlexpander/accounts/login/')
+@login_required(login_url='/urlexpander2/accounts/login/')
 def detail(request, pk):
     url = Url.objects.get(pk=pk)
     return render(request, 'urlexpander2/detail.html', {'url': url})
 
-@login_required(login_url='/urlexpander/accounts/login/')
+@login_required(login_url='/urlexpander2/accounts/login/')
 def add_url(request):
     new_url = Url()
     shortened_url = request.POST['new_url']
@@ -38,7 +38,7 @@ def add_url(request):
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
-@login_required(login_url='/urlexpander/accounts/login/')
+@login_required(login_url='/urlexpander2/accounts/login/')
 def UrlUpdate(request, pk):
     if request.method != 'POST':
         url = get_object_or_404(Url, pk=pk)
@@ -56,7 +56,7 @@ def UrlUpdate(request, pk):
         return redirect('urlexpander2:index')
 
 
-@login_required(login_url='/urlexpander/accounts/login/')
+@login_required(login_url='/urlexpander2/accounts/login/')
 def UrlDelete(request, pk):
     url = get_object_or_404(Url, pk=pk)
     url.delete()
