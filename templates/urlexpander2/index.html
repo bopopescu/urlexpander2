@@ -32,10 +32,7 @@
 
 <form action='{% url 'urlexpander2:logout_user' %}' method="post">
     {% csrf_token %}
-    <br>
-    <label for="new_url">Add a new URL: </label>
-    <input type="text" name="new_url" required>
-    <input type="submit" value = "Submit">
+    <input type="submit" value = "Logout">
 </form>
 </body>
 </html>
