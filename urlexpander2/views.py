@@ -1,8 +1,7 @@
-from django.views.generic.edit import UpdateView, DeleteView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from .models import Url
-from .forms import UserForm
+from .forms import UserForm, UrlEditForm
 import requests, bs4, json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -40,13 +39,25 @@ def add_url(request):
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
 # @login_required(login_url='/urlexpander2/login', redirect_field_name='url-update')
-class UrlUpdate(UpdateView):
-    model = Url
-    fields = ['shortened', 'destination', 'status', 'title']
-    template_name_suffix = '_update_form'
+def UrlUpdate(request, pk):
+    if request.method != 'POST':
+        url = get_object_or_404(Url, pk=pk)
+        form = UrlEditForm(initial={'shortened': url.shortened,
+                                    'destination': url.destination,
+                                    'status': url.status,
+                                    'title': url.title,
+                                    'snapshot_url': url.snapshot_url,
+                                    'timestamp': url.timestamp})
+        return render(request, 'urlexpander2/url_update_form.html', {'form': form})
+    else:
+        form = UrlEditForm(request.POST or None)
+        url = form.save()
+        url.save()
+        return redirect('urlexpander2:index')
+
 
 # @login_required(login_url='/urlexpander2/login', redirect_field_name='url-delete')
-class UrlDelete(DeleteView):
+def UrlDelete(DeleteView):
     model = Url
     success_url = reverse_lazy('urlexpander2:index')
 

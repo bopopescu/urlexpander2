@@ -7,6 +7,11 @@ class UrlForm(forms.ModelForm):
         model = Url
         fields = ['shortened']
 
+class UrlEditForm(forms.ModelForm):
+    class Meta:
+        model = Url
+        fields = ['shortened', 'destination', 'status', 'title', 'snapshot_url', 'timestamp']
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     class Meta:
