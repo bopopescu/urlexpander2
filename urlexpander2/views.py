@@ -39,19 +39,40 @@ def add_url(request):
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
-@login_required(login_url='/urlexpander2/login', redirect_field_name='url-update')
+# @login_required(login_url='/urlexpander2/login', redirect_field_name='url-update')
 class UrlUpdate(UpdateView):
     model = Url
     fields = ['shortened', 'destination', 'status', 'title']
     template_name_suffix = '_update_form'
 
-@login_required(login_url='/urlexpander2/login', redirect_field_name='url-delete')
+# @login_required(login_url='/urlexpander2/login', redirect_field_name='url-delete')
 class UrlDelete(DeleteView):
     model = Url
     success_url = reverse_lazy('index')
 
-def login(request):
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                events = Event.objects.filter(members__pk__contains=request.user.pk)
+                return redirect('movie:index')
+            else:
+                return render(request, 'registration/login.html', {'error_message': 'Your account has been disabled'})
+        else:
+            return render(request, 'registration/login.html', {'error_message': 'Invalid login'})
     return render(request, 'registration/login.html')
+
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    return render(request, 'movie/login.html', context)
 
 
 

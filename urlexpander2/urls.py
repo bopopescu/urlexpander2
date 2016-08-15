@@ -16,7 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from . import views
 from django.contrib.auth import views as auth_views
+
+app_name = 'urlexpander2'
+
 urlpatterns = [
+
+    #Auth
+    url(r'^accounts/login/$', auth_views.login),
+    url(r'^login_user/$', views.login_user, name='login_user'),
+    url(r'^logout_user/$', views.logout_user, name='logout_user'),
+    url(r'^register/$', views.register, name='register'),
+
     # /urlexpander2/
     url(r'^$', views.index, name='index'),
     # /urlexpander2/1234
@@ -27,9 +37,5 @@ urlpatterns = [
     url(r'^update/(?P<pk>[0-9]+)$', views.UrlUpdate.as_view(), name = 'url-update'),
     # /urlexpander2/delete/1234
     url(r'^delete/(?P<pk>[0-9]+)$', views.UrlDelete.as_view(), name = 'url-delete'),
-
-    # /urlexpander2/login
-    url(r'^login/$', views.login, name = 'login')
-
 
 ]
