@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.urlresolvers import reverse_lazy
 from .models import Url
 from .forms import UserForm, UrlEditForm
+from mysite.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 import requests, bs4, json
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
@@ -27,6 +29,7 @@ def add_url(request):
     new_url.destination = r.url
     new_url.status = r.status_code
 
+    #wayback
     arch_url = 'http://archive.org/wayback/available?url=' + shortened_url
     checked = requests.get(arch_url)
     data = json.loads(checked.text)
@@ -34,6 +37,14 @@ def add_url(request):
     timestamp = data['archived_snapshots']['closest']['timestamp']
     new_url.snapshot_url = snapshot
     new_url.timestamp = timestamp
+
+    #S3
+    new_url.screenshot_url = snapURL
+    conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    mybucket = conn.get_bucket('lab3images')
+    k = Key(mybucket)
+    k.key = snapName
+    k.set_contents_from_filename('snap.jpg')
 
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})

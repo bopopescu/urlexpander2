@@ -9,6 +9,7 @@ class Url(models.Model):
     title = models.CharField(max_length=500)
     snapshot_url = models.CharField(max_length=1000, default='http://google.com')
     timestamp = models.CharField(max_length=15, default='1234567')
+    screenshot_url = models.CharField(max_length = 1000)
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../my-first-blog/.idea/my-first-blog.iml" filepath="$PROJECT_DIR$/../my-first-blog/.idea/my-first-blog.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/urlexpander2.iml" filepath="$PROJECT_DIR$/.idea/urlexpander2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Lab 1/website/.idea/website.iml" filepath="$PROJECT_DIR$/../Lab 1/website/.idea/website.iml" />
     </modules>
   </component>
 </project>
