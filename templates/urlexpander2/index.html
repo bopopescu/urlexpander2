@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UrlExpander2</title>
+</head>
+<body>
+{% if all_urls %}
+    <h3>Here are all your Urls: </h3>
+    {% for url in all_urls %}
+        <li><a href='{% url 'urlexpander2:detail' url.id %}'>{{ url.shortened }}</a></li>
+        <form action='{% url 'urlexpander2:url-delete' url.id %}'>
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        <form action='{% url 'urlexpander2:url-update' url.id %}'>
+            {% csrf_token %}
+            <input type = 'submit' value = 'Update'>
+        </form>
+    {% endfor %}
+{% else %}
+    <h2>You don't have any urls</h2>
+{% endif %}
+
+<form action='{% url 'urlexpander2:url-add' %}' method="post">
+    {% csrf_token %}
+    <br>
+    <label for="new_url">Add a new URL: </label>
+    <input type="text" name="new_url" required>
+    <input type="submit" value = "Submit">
+</form>
+
+<form action='{% url 'urlexpander2:logout_user' %}' method="post">
+    {% csrf_token %}
+    <input type="submit" value = "Logout">
+</form>
+</body>
+</html>
