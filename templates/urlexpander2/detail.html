@@ -5,6 +5,10 @@
     <title>Details</title>
 </head>
 <body>
+<form action='{% url 'urlexpander2:index' %}'>
+    {% csrf_token %}
+    <input type = 'submit' value = 'Home'>
+</form>
 {% if url %}
     {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
@@ -19,9 +23,5 @@
     <h3>Phantom Image: </h3>
     <img src='{{ url.screenshot_url }}' alt="Phantom Image" >
 {% endif %}
-<form action='{% url 'urlexpander2:index' %}'>
-    {% csrf_token %}
-    <input type = 'submit' value = 'Home'>
-</form>
 </body>
 </html>
