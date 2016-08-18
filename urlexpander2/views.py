@@ -132,20 +132,12 @@ def rest_detail(request, pk):
     serializer = UrlDetailSerializer(url)
     return Response(serializer.data)
 
-
-
-
-
-
-
-
-
 @api_view(['POST'])
 def rest_add(request):
     """
     Add URLs
     """
-    serializer = UrlSerializer(data=request.data)
+    serializer = UrlListSerializer(data=request.data)
     if serializer.is_valid():
         shortened_url = request.data
         serializer.shortened_url = shortened_url
