@@ -146,7 +146,7 @@ def rest_detail(request, pk, format=None):
 		url.delete()
 
 @login_required(login_url='/urlexpander2/accounts/login/')
-@api_view(['UPDATE'])
+@api_view(['GET'])
 def rest_update(request, pk, format=None):
 
     url = get_object_or_404(Url, pk=pk)
