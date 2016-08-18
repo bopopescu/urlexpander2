@@ -10,7 +10,7 @@ class UrlForm(forms.ModelForm):
 class UrlEditForm(forms.ModelForm):
     class Meta:
         model = Url
-        fields = ['shortened', 'destination', 'status', 'title', 'snapshot_url', 'timestamp']
+        fields = ['shortened', 'destination', 'status', 'title', 'snapshot_url', 'timestamp', 'screenshot_url']
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)

@@ -42,14 +42,14 @@ def add_url(request):
     api_key = 'ak-cyywv-37en6-w9yr4-3df7w-7ygkz'
     response = '{url:"'+ snapshot + '",renderType:"jpg",outputAsJson:false}'
     url = 'http://PhantomJsCloud.com/api/browser/v2/' + api_key + '/?request=' + response
+    new_url.screenshot_url = url
+    new_url.save()
     resource = requests.get(url)
     conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     mybucket = conn.get_bucket('lab3images')
     k = Key(mybucket)
     k.key = new_url.pk
     k.set_contents_from_string(resource.content)
-    new_url.screenshot_url = url
-    new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
 @login_required(login_url='/urlexpander2/accounts/login/')
@@ -61,7 +61,8 @@ def UrlUpdate(request, pk):
                                     'status': url.status,
                                     'title': url.title,
                                     'snapshot_url': url.snapshot_url,
-                                    'timestamp': url.timestamp})
+                                    'timestamp': url.timestamp,
+                                    'screenshot_url': url.screenshot_url})
         return render(request, 'urlexpander2/url_update_form.html', {'form': form})
     else:
         url = get_object_or_404(Url, pk=pk)
@@ -71,6 +72,7 @@ def UrlUpdate(request, pk):
         url.title = request.POST['title']
         url.snapshot_url = request.POST['snapshot_url']
         url.timestamp = request.POST['timestamp']
+        url.screenshot_url = request.POST['screenshot_url']
         url.save()
         return redirect('urlexpander2:index')
 
