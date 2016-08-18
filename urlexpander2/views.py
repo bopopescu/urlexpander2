@@ -137,7 +137,7 @@ def rest_add(request):
     """
     Add URLs
     """
-    serializer = UrlListSerializer(data=request.data)
+    serializer = UrlListSerializer()
     if serializer.is_valid():
         shortened_url = request.data
         serializer.shortened_url = shortened_url
