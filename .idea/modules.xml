@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../ML7/.idea/ML7.iml" filepath="$PROJECT_DIR$/../ML7/.idea/ML7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Cinemiezer/.idea/Cinemiezer.iml" filepath="$PROJECT_DIR$/../Cinemiezer/.idea/Cinemiezer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/urlexpander2.iml" filepath="$PROJECT_DIR$/.idea/urlexpander2.iml" />
     </modules>
   </component>
