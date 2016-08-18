@@ -163,12 +163,12 @@ def rest_update(request, pk, format=None):
     #phantomJS
     api_key = 'ak-cyywv-37en6-w9yr4-3df7w-7ygkz'
     response = '{url:"' + snapshot + '",renderType:"jpg",outputAsJson:false}'
-    url = 'http://PhantomJsCloud.com/api/browser/v2/' + api_key + '/?request=' + response
-    url.screenshot_url = url
+    screenshot_url = 'http://PhantomJsCloud.com/api/browser/v2/' + api_key + '/?request=' + response
+    url.screenshot_url = screenshot_url
     url.save()
 
     #S3
-    resource = requests.get(url.shortened)
+    resource = requests.get(screenshot_url)
     conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     mybucket = conn.get_bucket('lab3images')
     k = Key(mybucket)
