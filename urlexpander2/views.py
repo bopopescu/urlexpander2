@@ -81,6 +81,11 @@ def UrlUpdate(request, pk):
 def UrlDelete(request, pk):
     url = get_object_or_404(Url, pk=pk)
     url.delete()
+    conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    mybucket = conn.get_bucket('lab3images')
+    k = Key(mybucket)
+    k.key = pk
+    k.delete()
     return redirect('urlexpander2:index')
 
 def login_user(request):
