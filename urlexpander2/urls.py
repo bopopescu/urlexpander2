@@ -38,5 +38,5 @@ urlpatterns = [
     url(r'^delete/(?P<pk>[0-9]+)$', views.UrlDelete, name = 'url-delete'),
 
     #REST API
-    url(r'^api/add/(?P<new_url>[\w\-]+)/$', views.rest_add, name='api-add')
+    url(r'^api/add/([\w\-]+)/$', views.rest_add, name='api-add'),
 ]
