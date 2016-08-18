@@ -39,13 +39,16 @@ def add_url(request):
     new_url.timestamp = timestamp
 
     #S3
-    new_url.screenshot_url = snapURL
+    api_key = 'ak-cyywv-37en6-w9yr4-3df7w-7ygkz'
+    response = '{url:"'+ snapshot + '",renderType:"jpg",outputAsJson:false}'
+    url = 'http://PhantomJsCloud.com/api/browser/v2/' + api_key + '/?request=' + response
+    new_url.screenshot_url = url
+    resource = requests.get(url)
     conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     mybucket = conn.get_bucket('lab3images')
     k = Key(mybucket)
-    k.key = snapName
-    k.set_contents_from_filename('snap.jpg')
-
+    k.key = new_url.pk
+    k.set_contents_from_string(resource.content)
     new_url.save()
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
