@@ -37,4 +37,6 @@ urlpatterns = [
     # /urlexpander2/delete/1234
     url(r'^delete/(?P<pk>[0-9]+)$', views.UrlDelete, name = 'url-delete'),
 
+    #REST API
+    url(r'^api/add/(?P<new_url>)/$', views.rest_add, name='api-add')
 ]

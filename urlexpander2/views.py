@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Url
-from .forms import UserForm, UrlEditForm
-from mysite.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-import requests, bs4, json
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+
+from .models import Url
+from .forms import UserForm, UrlEditForm
+from mysite.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+from .serializers import UrlSerializer
+
+import requests, bs4, json
 
 @login_required(login_url='/urlexpander2/accounts/login/')
 def index(request):
@@ -107,6 +113,43 @@ def logout_user(request):
     }
     return render(request, 'registration/login.html', context)
 
+# <-------------REST API --------------->
+@api_view(['POST'])
+def rest_add(request):
+    """
+    Add URLs
+    """
+    serializer = UrlSerializer(data=request.data)
+    if serializer.is_valid():
+        shortened_url = request.data
+        serializer.shortened_url = shortened_url
+        r = requests.get(shortened_url)
+        beautiful = bs4.BeautifulSoup(r.text)
+        serializer.title = beautiful.title.text
+        serializer.destination = r.url
+        serializer.status = r.status_code
+
+        # wayback
+        arch_url = 'http://archive.org/wayback/available?url=' + shortened_url
+        checked = requests.get(arch_url)
+        data = json.loads(checked.text)
+        snapshot = data['archived_snapshots']['closest']['url']
+        timestamp = data['archived_snapshots']['closest']['timestamp']
+        serializer.snapshot_url = snapshot
+        serializer.timestamp = timestamp
+
+        # S3
+        api_key = 'ak-cyywv-37en6-w9yr4-3df7w-7ygkz'
+        response = '{url:"' + snapshot + '",renderType:"jpg",outputAsJson:false}'
+        url = 'http://PhantomJsCloud.com/api/browser/v2/' + api_key + '/?request=' + response
+        serializer.screenshot_url = url
+        serializer.save()
+        resource = requests.get(url)
+        conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+        mybucket = conn.get_bucket('lab3images')
+        k = Key(mybucket)
+        k.key = serializer.pk
+        k.set_contents_from_string(resource.content)
 
 
 
