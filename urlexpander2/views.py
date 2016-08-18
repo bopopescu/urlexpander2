@@ -166,7 +166,7 @@ def rest_add(request):
         conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
         mybucket = conn.get_bucket('lab3images')
         k = Key(mybucket)
-        k.key = serializer.pk
+        k.key = serializer.id
         k.set_contents_from_string(resource.content)
 
 

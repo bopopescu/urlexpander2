@@ -40,5 +40,5 @@ urlpatterns = [
     #REST API
     url(r'^api/get/$', views.rest_index, name='api-index'),
     url(r'^api/(?P<pk>[0-9]+)/$', views.rest_detail, name='api-detail'),
-    url(r'^api/add/([\w\-]+)/$', views.rest_add, name='api-add'),
+    url(r'^api/add/', views.rest_add, name='api-add'),
 ]
