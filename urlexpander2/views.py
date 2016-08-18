@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, ratelimit
 from rest_framework.response import Response
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -14,16 +14,19 @@ from .serializers import UrlDetailSerializer, UrlListSerializer, UrlAddSerialize
 
 import requests, bs4, json
 
+@ratelimit(key="ip", rate="10/m", block=True)
 @login_required(login_url='/urlexpander2/accounts/login/')
 def index(request):
     urls = Url.objects.all()
     return render(request, 'urlexpander2/index.html', {'all_urls': urls})
 
+@ratelimit(key="ip", rate="10/m", block=True)
 @login_required(login_url='/urlexpander2/accounts/login/')
 def detail(request, pk):
     url = Url.objects.get(pk=pk)
     return render(request, 'urlexpander2/detail.html', {'url': url})
 
+@ratelimit(key="ip", rate="10/m", block=True)
 @login_required(login_url='/urlexpander2/accounts/login/')
 def add_url(request):
     new_url = Url()
@@ -58,6 +61,7 @@ def add_url(request):
     k.set_contents_from_string(resource.content)
     return render(request, 'urlexpander2/detail.html', {'url':new_url})
 
+@ratelimit(key="ip", rate="10/m", block=True)
 @login_required(login_url='/urlexpander2/accounts/login/')
 def UrlUpdate(request, pk):
     if request.method != 'POST':
@@ -82,7 +86,7 @@ def UrlUpdate(request, pk):
         url.save()
         return redirect('urlexpander2:index')
 
-
+@ratelimit(key="ip", rate="10/m", block=True)
 @login_required(login_url='/urlexpander2/accounts/login/')
 def UrlDelete(request, pk):
     url = get_object_or_404(Url, pk=pk)
@@ -114,6 +118,8 @@ def logout_user(request):
     return render(request, 'registration/login.html', context)
 
 # <-------------REST API --------------->
+@ratelimit(key="ip", rate="10/m", block=True)
+@login_required(login_url='/urlexpander2/accounts/login/')
 @api_view(['GET','POST'])
 def rest_index(request, format=None):
     if request.method == 'GET':
@@ -125,6 +131,8 @@ def rest_index(request, format=None):
 	    if serializer.is_valid():
 		    serializer.save()
 
+@ratelimit(key="ip", rate="10/m", block=True)
+@login_required(login_url='/urlexpander2/accounts/login/')
 @api_view(['GET', 'DELETE'])
 def rest_detail(request, pk, format=None):
     url = get_object_or_404(Url, pk=pk)
