@@ -16,8 +16,8 @@
     <p>Title: {{ url.title }}</p>
     <p>Wayback Snapshot: {{ url.snapshot_url }}</p>
     <p>Wayback Timestamp: {{ url.timestamp }}</p>
-    <p>Phantom Image: </p>
-    <img src={{ url.screenshot_url }}>
+    <h3>Phantom Image: </h3>
+    <img src='{{ url.screenshot_url }}'>
 {% endif %}
 <form action='{% url 'urlexpander2:index' %}'>
     {% csrf_token %}
