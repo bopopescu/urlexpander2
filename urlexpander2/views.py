@@ -168,7 +168,7 @@ def rest_add(request):
     k.key = new_url.pk
     k.set_contents_from_string(resource.content)
 
-    serializer = UrlListSerializer(new_url, many=False)
+    serializer = UrlDetailSerializer(new_url, many=False)
     return Response(serializer.data)
 
 
