@@ -115,7 +115,7 @@ def logout_user(request):
 
 # <-------------REST API --------------->
 @api_view(['GET','POST'])
-def list_urls(request, format=None):
+def rest_index(request, format=None):
     if request.method == 'GET':
         urls = Url.objects.all()
         serializer = UrlListSerializer(urls, many=True)
@@ -126,7 +126,7 @@ def list_urls(request, format=None):
 		    serializer.save()
 
 @api_view(['GET', 'DELETE'])
-def detail_url(request, pk, format=None):
+def rest_detail(request, pk, format=None):
     url = get_object_or_404(Url, pk=pk)
     if request.method == 'GET':
         serializer = UrlDetailSerializer(url)
