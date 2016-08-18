@@ -12,3 +12,9 @@ class UrlListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Url
         fields = ('id','shortened')
+
+class UrlAddSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Url
+        fields = ('shortened')
