@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Url
 from .forms import UserForm, UrlEditForm
 from mysite.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-from .serializers import UrlSerializer
+from .serializers import UrlDetailSerializer, UrlListSerializer
 
 import requests, bs4, json
 
@@ -114,6 +114,32 @@ def logout_user(request):
     return render(request, 'registration/login.html', context)
 
 # <-------------REST API --------------->
+@api_view(['GET'])
+def rest_index(request):
+    """
+    Get all listings
+    """
+    urls = Url.objects.all()
+    serializer = UrlListSerializer(urls, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def rest_detail(request, pk):
+    """
+    Get details on a specific URL
+    """
+    url = get_object_or_404(Url, pk=pk)
+    serializer = UrlDetailSerializer(url)
+    return Response(serializer.data)
+
+
+
+
+
+
+
+
+
 @api_view(['POST'])
 def rest_add(request):
     """
