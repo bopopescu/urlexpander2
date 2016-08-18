@@ -132,7 +132,7 @@ def rest_detail(request, pk):
     serializer = UrlDetailSerializer(url)
     return Response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['GET','POST'])
 def rest_add(request):
     """
     Add URLs
