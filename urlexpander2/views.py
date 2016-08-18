@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import status
-from rest_framework.decorators import api_view, ratelimit
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from ratelimit.decorators import ratelimit
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from django.contrib.auth.decorators import login_required
