@@ -41,6 +41,7 @@ urlpatterns = [
     #REST API
     url(r'^api/get/$', views.rest_index, name='api-index'),
     url(r'^api/(?P<pk>[0-9]+)/$', views.rest_detail, name='api-detail'),
+    url(r'^api/update/(?P<pk>[0-9]+)/$', views.rest_update, name='api-update'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
