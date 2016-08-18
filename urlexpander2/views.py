@@ -132,4 +132,4 @@ def detail_url(request, pk, format=None):
         serializer = UrlDetailSerializer(url)
         return Response(serializer.data)
     elif request.method == 'DELETE':
-		url.delete()
+        url.delete()
