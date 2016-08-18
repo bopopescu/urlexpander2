@@ -18,6 +18,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 app_name = 'urlexpander2'
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
 
@@ -40,5 +41,6 @@ urlpatterns = [
     #REST API
     url(r'^api/get/$', views.rest_index, name='api-index'),
     url(r'^api/(?P<pk>[0-9]+)/$', views.rest_detail, name='api-detail'),
-    url(r'^api/add/(http:\/\/\/[\w_]+\.[\w\-_]+)/$', views.rest_add, name='api-add'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

@@ -114,67 +114,22 @@ def logout_user(request):
     return render(request, 'registration/login.html', context)
 
 # <-------------REST API --------------->
-@api_view(['GET'])
-def rest_index(request):
-    """
-    Get all listings
-    """
-    urls = Url.objects.all()
-    serializer = UrlListSerializer(urls, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def rest_detail(request, pk):
-    """
-    Get details on a specific URL
-    """
-    url = get_object_or_404(Url, pk=pk)
-    serializer = UrlDetailSerializer(url)
-    return Response(serializer.data)
-
 @api_view(['GET','POST'])
-def rest_add(request):
-    """
-    Add URLs
-    """
-    new_url = Url()
-    shortened_url = request.data
-    r = requests.get(shortened_url)
-    beautiful = bs4.BeautifulSoup(r.text)
-    new_url.shortened = shortened_url
-    new_url.title = beautiful.title.text
-    new_url.destination = r.url
-    new_url.status = r.status_code
+def list_urls(request, format=None):
+    if request.method == 'GET':
+        urls = Url.objects.all()
+        serializer = UrlListSerializer(urls, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+	    serializer = UrlDetailSerializer(data = request.data)
+	    if serializer.is_valid():
+		    serializer.save()
 
-    #wayback
-    arch_url = 'http://archive.org/wayback/available?url=' + shortened_url
-    checked = requests.get(arch_url)
-    data = json.loads(checked.text)
-    snapshot = data['archived_snapshots']['closest']['url']
-    timestamp = data['archived_snapshots']['closest']['timestamp']
-    new_url.snapshot_url = snapshot
-    new_url.timestamp = timestamp
-
-    #S3
-    api_key = 'ak-cyywv-37en6-w9yr4-3df7w-7ygkz'
-    response = '{url:"'+ snapshot + '",renderType:"jpg",outputAsJson:false}'
-    url = 'http://PhantomJsCloud.com/api/browser/v2/' + api_key + '/?request=' + response
-    new_url.screenshot_url = url
-    new_url.save()
-    resource = requests.get(url)
-    conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-    mybucket = conn.get_bucket('lab3images')
-    k = Key(mybucket)
-    k.key = new_url.pk
-    k.set_contents_from_string(resource.content)
-
-    serializer = UrlDetailSerializer(new_url, many=False)
-    return Response(serializer.data)
-
-
-
-
-
-
-
-
+@api_view(['GET', 'DELETE'])
+def detail_url(request, pk, format=None):
+    url = get_object_or_404(Url, pk=pk)
+    if request.method == 'GET':
+        serializer = UrlDetailSerializer(url)
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+		url.delete()
